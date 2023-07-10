@@ -1,0 +1,15 @@
+.score {
+    left: 90% !important;
+    top: 10% !important;
+}
+
+@media screen and (max-width: 990px) {
+    .score {
+        left: 80% !important;
+        top: 10% !important;
+    }
+}
+
+.ombra {
+    box-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.6) !important;
+}
