@@ -48,7 +48,7 @@ export default function Info() {
                     </li>
                 </ul>
                 <div className="pt-3">
-                    Testaaa
+                    
                     <i
                         className={
                             "fa-solid fa-horse fa-2xl " +
