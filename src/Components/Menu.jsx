@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
+import useToggle from "../Hooks/useToggle";
 
 export default function Navigation() {
+    const [menu, setMenu] = useToggle();
+
     return (
         <nav className="navbar sticky-top navbar-expand-lg bg-dark border-bottom border-bottom-dark bg-opacity-75">
             <div className="container-fluid">
@@ -11,17 +14,21 @@ export default function Navigation() {
                     NETFLIX
                 </NavLink>
                 <button
+                    onClick={setMenu}
                     className="navbar-toggler"
                     type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
                     aria-controls="navbarNav"
-                    aria-expanded="false"
+                    aria-expanded={menu}
                     aria-label="Toggle navigation"
                 >
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
+                <div
+                    className={
+                        "collapse navbar-collapse " + (menu ? "show" : "")
+                    }
+                    id="navbarNav"
+                >
                     <ul className="navbar-nav">
                         <li className="nav-item">
                             <NavLink
