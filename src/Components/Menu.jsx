@@ -50,6 +50,16 @@ export default function Navigation() {
                                 Info
                             </NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink
+                                to="/pdf"
+                                className={({ isActive }) =>
+                                    isActive ? "nav-link active" : "nav-link"
+                                }
+                            >
+                                PDF
+                            </NavLink>
+                        </li>
                     </ul>
                 </div>
             </div>

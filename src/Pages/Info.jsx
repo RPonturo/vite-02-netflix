@@ -47,8 +47,9 @@ export default function Info() {
                         </span>
                     </li>
                 </ul>
+            </div>
+            <div className="col-12 fs-5">
                 <div className="pt-3">
-                    
                     <i
                         className={
                             "fa-solid fa-horse fa-2xl " +
