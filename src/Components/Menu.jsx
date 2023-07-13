@@ -44,6 +44,16 @@ export default function Navigation() {
                         </li>
                         <li className="nav-item">
                             <NavLink
+                                to="/kifblakdfndlk"
+                                className={({ isActive }) =>
+                                    isActive ? "nav-link active" : "nav-link"
+                                }
+                            >
+                                TryMe
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink
                                 to="/info"
                                 className={({ isActive }) =>
                                     isActive ? "nav-link active" : "nav-link"

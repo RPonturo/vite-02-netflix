@@ -1,12 +1,11 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 import Info from "./Pages/Info";
 import Home from "./Pages/Home";
 import Details from "./Pages/Details";
-import Menu from "./Components/Menu";
-import Footer from "./Components/Footer";
 import Preferiti from "./Pages/Preferiti";
-import { ContextProvider } from "./Contexts";
+import Root from "./Pages/Root";
+import Error from "./Pages/Error";
 
 function App() {
     const urls = {
@@ -20,24 +19,33 @@ function App() {
         people_details: "https://api.themoviedb.org/3/person/",
     };
 
-    return (
-        <ContextProvider>
-            <BrowserRouter basename="/">
-                <Menu />
-                <Routes>
-                    <Route path="/" element={<Home urls={urls} />} />
-                    <Route path="/info" element={<Info />} />
-                    <Route path="/preferiti" element={<Preferiti />} />
+    const router = createBrowserRouter([
+        {
+            path: "/",
+            element: <Root />,
+            errorElement: <Error />,
+            children: [
+                {
+                    path: "/",
+                    element: <Home urls={urls} />,
+                },
+                {
+                    path: "/info",
+                    element: <Info />,
+                },
+                {
+                    path: "/preferiti",
+                    element: <Preferiti />,
+                },
+                {
+                    path: "/details/movie/:id",
+                    element: <Details urls={urls} />,
+                },
+            ],
+        },
+    ]);
 
-                    <Route
-                        path="/details/movie/:id"
-                        element={<Details urls={urls} />}
-                    />
-                </Routes>
-                <Footer />
-            </BrowserRouter>
-        </ContextProvider>
-    );
+    return <RouterProvider router={router} />;
 }
 
 export default App;
