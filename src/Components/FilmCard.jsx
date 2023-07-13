@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import "./FilmCard.css";
+import { useContext } from "react";
+import { Context } from "../Contexts";
 
 export default function FilmCard({ film, urls }) {
+    const { preferiti } = useContext(Context);
+
+    const isPreferito = preferiti.filter((el) => el == film.id).length;
     return (
         <div className="col-3 col-md-2 px-2 embla__slide">
             <div className="card ombra">
@@ -21,6 +26,7 @@ export default function FilmCard({ film, urls }) {
                         <i className="fa-solid fa-video fa-2xl m-3"></i>
                     </span>
                 )}
+
                 <img
                     className="card-img d-lg-none"
                     src={
@@ -37,6 +43,14 @@ export default function FilmCard({ film, urls }) {
                         <i className="fa-solid fa-video fa-2xl m-3"></i>
                     </span>
                 )}
+                <span className="position-absolute starred text-danger translate-middle bg-opacity-75">
+                    <i
+                        className={
+                            (isPreferito ? "fa-solid" : "fa-regular") +
+                            " fa-heart fa-xl"
+                        }
+                    ></i>
+                </span>
                 <span className="position-absolute score badge rounded-pill bg-danger translate-middle bg-opacity-75">
                     {film.vote_average.toFixed(1)}
                     <span className="visually-hidden">

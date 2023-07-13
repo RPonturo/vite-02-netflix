@@ -11,6 +11,7 @@ export default function Films({ url, urls }) {
         loop: true,
         containScroll: "trimSnaps",
         align: "start",
+        dragFree: true,
     });
 
     useEffect(() => {

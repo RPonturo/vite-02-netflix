@@ -5,7 +5,8 @@ import Home from "./Pages/Home";
 import Details from "./Pages/Details";
 import Menu from "./Components/Menu";
 import Footer from "./Components/Footer";
-import Pdf from "./Pages/Pdf";
+import Preferiti from "./Pages/Preferiti";
+import { ContextProvider } from "./Contexts";
 
 function App() {
     const urls = {
@@ -20,19 +21,22 @@ function App() {
     };
 
     return (
-        <BrowserRouter basename="/">
-            <Menu />
-            <Routes>
-                <Route path="/" element={<Home urls={urls} />} />
-                <Route path="/info" element={<Info />} />
-                <Route path="/pdf" element={<Pdf />} />
-                <Route
-                    path="/details/movie/:id"
-                    element={<Details urls={urls} />}
-                />
-            </Routes>
-            <Footer />
-        </BrowserRouter>
+        <ContextProvider>
+            <BrowserRouter basename="/">
+                <Menu />
+                <Routes>
+                    <Route path="/" element={<Home urls={urls} />} />
+                    <Route path="/info" element={<Info />} />
+                    <Route path="/preferiti" element={<Preferiti />} />
+
+                    <Route
+                        path="/details/movie/:id"
+                        element={<Details urls={urls} />}
+                    />
+                </Routes>
+                <Footer />
+            </BrowserRouter>
+        </ContextProvider>
     );
 }
 

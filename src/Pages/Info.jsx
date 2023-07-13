@@ -37,7 +37,7 @@ export default function Info() {
                         <span className="fw-light">Librerie: </span>
                         <span className="fw-bold text-white">
                             React, Vite, Bootstrap, React-Router-DOM, Embla
-                            Carousel, Google Fonts, Fontawesome
+                            Carousel, Google Fonts, Fontawesome, React-PDF
                         </span>
                     </li>
                     <li className="list-group-item">

@@ -1,9 +1,11 @@
 import { NavLink } from "react-router-dom";
 import useToggle from "../Hooks/useToggle";
+import { useContext } from "react";
+import { Context } from "../Contexts";
 
 export default function Navigation() {
     const [menu, setMenu] = useToggle();
-
+    const { preferiti } = useContext(Context);
     return (
         <nav className="navbar sticky-top navbar-expand-lg bg-dark border-bottom border-bottom-dark bg-opacity-75">
             <div className="container-fluid">
@@ -52,12 +54,15 @@ export default function Navigation() {
                         </li>
                         <li className="nav-item">
                             <NavLink
-                                to="/pdf"
+                                to="/preferiti"
                                 className={({ isActive }) =>
                                     isActive ? "nav-link active" : "nav-link"
                                 }
                             >
-                                PDF
+                                Preferiti
+                                {preferiti.length
+                                    ? ` (${preferiti.length})`
+                                    : ""}
                             </NavLink>
                         </li>
                     </ul>

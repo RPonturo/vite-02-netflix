@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import useFetch from "../Hooks/useFetch";
 import Films from "../Components/Films";
+import { useContext } from "react";
+import { Context } from "../Contexts";
 
 export default function Details({ urls }) {
     const { id } = useParams();
     const [film, setFilm] = useState();
     const [attori, setAttori] = useState();
+    const { preferiti, setPreferiti } = useContext(Context);
+    const [isPreferito, setIsPreferito] = useState();
 
     const { data: dataFilm } = useFetch(`${urls.movie_details}${id}`, null);
     const { data: dataCredits } = useFetch(
@@ -14,15 +18,28 @@ export default function Details({ urls }) {
         null
     );
 
+    const handlePreferiti = () => {
+        if (preferiti.filter((el) => el == dataFilm.id).length) {
+            setPreferiti(preferiti.filter((el) => el !== dataFilm.id));
+        } else {
+            setPreferiti((prev) => [...prev, dataFilm.id]);
+        }
+        setIsPreferito(() => !isPreferito);
+    };
     useEffect(() => {
         if (dataFilm) {
             setFilm(dataFilm);
+            setIsPreferito(preferiti.filter((el) => el == dataFilm.id).length);
         }
     }, [dataFilm]);
 
     useEffect(() => {
         if (dataCredits) {
-            setAttori(dataCredits.cast);
+            setAttori(
+                dataCredits.cast.filter(
+                    (el) => el.known_for_department === "Acting"
+                )
+            );
         }
     }, [dataCredits]);
 
@@ -48,6 +65,16 @@ export default function Details({ urls }) {
                             </span>
                             <span className="text-white mx-3">
                                 {film.release_date.slice(0, 4)}
+                            </span>
+                            <span className="text-danger">
+                                <i
+                                    className={
+                                        (isPreferito
+                                            ? "fa-solid"
+                                            : "fa-regular") + " fa-heart fa-2xl"
+                                    }
+                                    onClick={handlePreferiti}
+                                ></i>
                             </span>
                         </div>
                         <div className="pt-3 text-white">{film.overview}</div>
@@ -91,50 +118,3 @@ export default function Details({ urls }) {
         )
     );
 }
-
-/*
-    const { dataAttori } = useFetch(
-        `${urls.movie_details}${id}/credits${urls.key}`,
-        null
-    );
-        useEffect(() => {
-        if (dataAttori && dataAttori !== null) {
-            setAttori(dataAttori);
-        }
-    }, [dataAttori]);
-
-                style={
-                    film.data
-                        ? {
-                              backgroundSize: "cover",
-                              //backgroundImage: `url(${urls.url_imageBig}${film.data.backdrop_path}`,
-                              backgroundPosition: "center center",
-                              backgroundRepeat: "no-repeat",
-                              //filter: "blur(6px)",
-                          }
-                        : {}
-                }
-
-
-                
-    useEffect(() => {
-        fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
-            .then((r) => r.json())
-            .then((r) => setPost(r));
-        fetch(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
-            .then((r) => r.json())
-            .then((r) => setComments(r));
-    });
-
-
-                    {post && (
-                    <div className="col-12">
-                        <h2>{post.title}</h2>
-                        <p>{post.body}</p>
-                    </div>
-                )}
-                <div className="col-12">
-                    {comments &&
-                        comments.map((el) => <li key={el.id}>{el.body}</li>)}
-                </div>
-*/

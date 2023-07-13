@@ -3,9 +3,18 @@
     top: 10% !important;
 }
 
+.starred {
+    left: 10% !important;
+    top: 10% !important;
+}
+
 @media screen and (max-width: 990px) {
     .score {
         left: 80% !important;
+        top: 10% !important;
+    }
+    .starred {
+        left: 20% !important;
         top: 10% !important;
     }
 }
