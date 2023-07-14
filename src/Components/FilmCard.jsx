@@ -4,9 +4,9 @@ import { useContext } from "react";
 import { Context } from "../Contexts";
 
 export default function FilmCard({ film, urls }) {
-    const { preferiti } = useContext(Context);
+    const { idPreferiti } = useContext(Context);
 
-    const isPreferito = preferiti.filter((el) => el == film.id).length;
+    const isPreferito = idPreferiti.filter((el) => el == film.id).length;
     return (
         <div className="col-3 col-md-2 px-2 embla__slide">
             <div className="card ombra">

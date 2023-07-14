@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-
 import Footer from "../Components/Footer";
 
 export default function Error() {
@@ -7,11 +6,12 @@ export default function Error() {
         <>
             <div className="row py-5 px-5 mx-0 text-white text-center">
                 <div className="col-12">
-                    <h1 class="display-1 fw-bold">404</h1>
-                    <p class="fs-3">
-                        <span class="text-danger">Opps!</span> Page not found.
+                    <h1 className="display-1 fw-bold">404</h1>
+                    <p className="fs-3">
+                        <span className="text-danger">Opps!</span> Page not
+                        found.
                     </p>
-                    <p class="lead">
+                    <p className="lead">
                         The page you're looking for doesn't exist.
                     </p>
                     <Link to={`/`} className="btn btn-danger btn-lg">

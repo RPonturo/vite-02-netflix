@@ -1,19 +1,26 @@
 import { PDFViewer } from "@react-pdf/renderer";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { StampaPreferiti } from "../Components/StampaPreferiti";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context } from "../Contexts";
+import useFetch from "../Hooks/useFetch";
 
-export default function Preferiti() {
-    const { preferiti } = useContext(Context);
+export default function Preferiti({ urls }) {
+    const { idPreferiti } = useContext(Context);
+    const [films, setFilms] = useState();
 
+    const { data: dataFilms } = idPreferiti.map((el) => {
+        useFetch(`${urls.movie_details}${el}`, null);
+    });
+
+    console.log(dataFilms);
     return (
         <>
             <div className="row py-3 px-5 mx-0">
-                {preferiti.map((el) => (
-                    <div className="col-12" key={el}>
+                {idPreferiti.map((el) => (
+                    <span className="col-1" key={el}>
                         {el}
-                    </div>
+                    </span>
                 ))}
 
                 <div className="col-12">

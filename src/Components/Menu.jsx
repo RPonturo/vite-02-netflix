@@ -5,7 +5,7 @@ import { Context } from "../Contexts";
 
 export default function Navigation() {
     const [menu, setMenu] = useToggle();
-    const { preferiti } = useContext(Context);
+    const { idPreferiti } = useContext(Context);
     return (
         <nav className="navbar sticky-top navbar-expand-lg bg-dark border-bottom border-bottom-dark bg-opacity-75">
             <div className="container-fluid">
@@ -70,8 +70,8 @@ export default function Navigation() {
                                 }
                             >
                                 Preferiti
-                                {preferiti.length
-                                    ? ` (${preferiti.length})`
+                                {idPreferiti.length
+                                    ? ` (${idPreferiti.length})`
                                     : ""}
                             </NavLink>
                         </li>

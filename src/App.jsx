@@ -11,6 +11,7 @@ function App() {
     const urls = {
         url_image: "https://image.tmdb.org/t/p/w300",
         url_imageBig: "https://image.tmdb.org/t/p/w780",
+        url_image4k: "https://image.tmdb.org/t/p/original",
         upcoming: "https://api.themoviedb.org/3/movie/upcoming",
         top_rated: "https://api.themoviedb.org/3/movie/top_rated",
         popular: "https://api.themoviedb.org/3/movie/popular",
@@ -35,7 +36,7 @@ function App() {
                 },
                 {
                     path: "/preferiti",
-                    element: <Preferiti />,
+                    element: <Preferiti urls={urls} />,
                 },
                 {
                     path: "/details/movie/:id",

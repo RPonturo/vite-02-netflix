@@ -9,7 +9,7 @@ export default function Details({ urls }) {
     const { id } = useParams();
     const [film, setFilm] = useState();
     const [attori, setAttori] = useState();
-    const { preferiti, setPreferiti } = useContext(Context);
+    const { idPreferiti, setIdPreferiti } = useContext(Context);
     const [isPreferito, setIsPreferito] = useState();
 
     const { data: dataFilm } = useFetch(`${urls.movie_details}${id}`, null);
@@ -19,17 +19,19 @@ export default function Details({ urls }) {
     );
 
     const handlePreferiti = () => {
-        if (preferiti.filter((el) => el == dataFilm.id).length) {
-            setPreferiti(preferiti.filter((el) => el !== dataFilm.id));
+        if (idPreferiti.filter((el) => el == dataFilm.id).length) {
+            setIdPreferiti(idPreferiti.filter((el) => el !== dataFilm.id));
         } else {
-            setPreferiti((prev) => [...prev, dataFilm.id]);
+            setIdPreferiti((prev) => [...prev, dataFilm.id]);
         }
         setIsPreferito(() => !isPreferito);
     };
     useEffect(() => {
         if (dataFilm) {
             setFilm(dataFilm);
-            setIsPreferito(preferiti.filter((el) => el == dataFilm.id).length);
+            setIsPreferito(
+                idPreferiti.filter((el) => el == dataFilm.id).length
+            );
         }
     }, [dataFilm]);
 
@@ -46,6 +48,21 @@ export default function Details({ urls }) {
     return (
         film && (
             <>
+                {film.backdrop_path && (
+                    <div
+                        className="container-fluid px-0 sfondoFilm"
+                        style={{
+                            backgroundImage: `url(${
+                                urls.url_image4k + film.backdrop_path
+                            })`,
+                        }}
+                    >
+                        <img
+                            src={urls.url_image + film.backdrop_path}
+                            className="sfondoFilmFiglio"
+                        />
+                    </div>
+                )}
                 <div className="row py-3 px-5 mx-0">
                     <div className="col-12 col-lg-4 px-0 text-center">
                         <img
