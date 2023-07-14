@@ -128,27 +128,57 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-export const StampaPreferiti = () => (
-    <Document>
-        <Page size="A4" style={styles.page}>
-            <View style={styles.list}>
-                <Text>Film preferiti</Text>
-                {games.data.map((el) => {
-                    return (
-                        <View style={styles.listElement} key={el.id}>
-                            <Image
-                                style={styles.listElementImage}
-                                src={el.images.avatar}
-                            />
-                            <View style={styles.listElementText}>
-                                <Text>{el.name}</Text>
-                                <Text>Publisher: {el.publisher} </Text>
-                                <Text>Release date: {el.release_date} </Text>
+export const StampaPreferiti = (props) => {
+    const films = props.films;
+    console.log(films);
+    return (
+        <Document>
+            <Page size="A4" style={styles.page}>
+                <View style={styles.list}>
+                    <Text>Film preferiti</Text>
+                    <View>
+                        {films.map((el) => {
+                            return (
+                                <View style={styles.listElement} key={el.id}>
+                                    <Image
+                                        style={styles.listElementImage}
+                                        src={`${props.url}${el.poster_path}?not-from-cache-please`}
+                                    />
+                                    <View style={styles.listElementText}>
+                                        <Text>{el.title}</Text>
+                                        <Text>
+                                            Pubblicato: {el.release_date}
+                                        </Text>
+                                        <Text>
+                                            Voto: {el.vote_average.toFixed(1)}
+                                        </Text>
+                                    </View>
+                                </View>
+                            );
+                        })}
+                    </View>
+                </View>
+            </Page>
+        </Document>
+    );
+};
+
+/*
+                    {games.data.map((el) => {
+                        return (
+                            <View style={styles.listElement} key={el.id}>
+                                <Image
+                                    style={styles.listElementImage}
+                                    src={el.images.avatar}
+                                />
+                                <View style={styles.listElementText}>
+                                    <Text>{el.name}</Text>
+                                    <Text>Publisher: {el.publisher} </Text>
+                                    <Text>
+                                        Release date: {el.release_date}{" "}
+                                    </Text>
+                                </View>
                             </View>
-                        </View>
-                    );
-                })}
-            </View>
-        </Page>
-    </Document>
-);
+                        );
+                    })}
+*/

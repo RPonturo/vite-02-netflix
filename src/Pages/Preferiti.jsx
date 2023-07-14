@@ -3,29 +3,35 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { StampaPreferiti } from "../Components/StampaPreferiti";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../Contexts";
-import useFetch from "../Hooks/useFetch";
 
 export default function Preferiti({ urls }) {
     const { idPreferiti } = useContext(Context);
-    const [films, setFilms] = useState();
+    const [films, setFilms] = useState([]);
 
-    const { data: dataFilms } = idPreferiti.map((el) => {
-        useFetch(`${urls.movie_details}${el}`, null);
-    });
+    const key = `?api_key=${
+        import.meta.env.VITE_API_KEY
+    }&language=it-IT&include_image_language=it,en,null`;
 
-    console.log(dataFilms);
+    useEffect(() => {
+        idPreferiti.map((el) =>
+            fetch(urls.movie_details + el + key)
+                .then((res) => res.json())
+                .then((data) => setFilms((films) => [...films, data]))
+                .catch((err) => console.log(err))
+        );
+    }, []);
+
     return (
         <>
             <div className="row py-3 px-5 mx-0">
-                {idPreferiti.map((el) => (
-                    <span className="col-1" key={el}>
-                        {el}
-                    </span>
-                ))}
-
                 <div className="col-12">
                     <PDFDownloadLink
-                        document={<StampaPreferiti />}
+                        document={
+                            <StampaPreferiti
+                                films={films}
+                                url={urls.url_image}
+                            />
+                        }
                         fileName="preferiti"
                     >
                         {({ loading }) =>
@@ -44,7 +50,7 @@ export default function Preferiti({ urls }) {
             </div>
             <div className="row px-5 mx-0">
                 <PDFViewer className="col-12" height="600px">
-                    <StampaPreferiti />
+                    <StampaPreferiti films={films} url={urls.url_image} />
                 </PDFViewer>
             </div>
         </>
